@@ -12,7 +12,7 @@ public class Recursion{
 	public static double helper (double n, double guess){
 
 	    	if (n < 0) { //exception
-		throw new IllegalArgumentException("Cannot Take SquareRoote of negative.");
+		throw new IllegalArgumentException("Cannot Take Square Root of negative.");
 		}
 	    if (n == 0 || n == 1){
 		return n;
@@ -39,6 +39,6 @@ public class Recursion{
 	System.out.println("sqrt of 0 should be 1, ?= " + sqrt(1));
 	System.out.println("sqrt of 25 should be 5, ?= " + sqrt(25));
 	System.out.println("sqrt of 2 should be 1.414, ?= " + sqrt(2));
-	System.out.println("sqrt of -25 should be IllegalArgumentException, ?= " + sqrt(5));
+	System.out.println("sqrt of -25 should be IllegalArgumentException, ?= " + sqrt(-25));
     }
 }
