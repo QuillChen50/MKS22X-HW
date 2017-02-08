@@ -4,29 +4,35 @@ public class Recursion{
      return "Chen,Jenny";}
     
     public static double sqrt(double n){
-	if (n < 0) { //exception
-	    try{}
-            catch (IllegalArgumentException e) { 
-		System.out.println("Cannot Take SquareRoote of negative.");
-		return -1;}
-	}
+
 	return helper(n, n/2);
-	}}
+	}
 	
     
 	public static double helper (double n, double guess){
 
+	    	if (n < 0) { //exception
+		throw new IllegalArgumentException("Cannot Take SquareRoote of negative.");
+		}
 	    if (n == 0 || n == 1){
 		return n;
 	    }
-        
-	    if (Math.abs(Math.pow(guess, 2) - n) < 0.0001){
+
+	    if (close(n, guess)){
 		return guess;}
 
 	    else{
-		double bGuess = (n/guess + guess)/2
-		return helper(n, bGuess);}
+		return helper(n, improveGuess(n,guess));}
 	}
+
+	    public static boolean close(double n, double g){
+		double a = n/g;
+		return (Math.abs(a - g) < .0000001);
+	    }
+
+	    public static double improveGuess(double n, double guess){
+		return ((n/guess + guess)/2);
+	    }
 
     public static void main (String args[]){
 	System.out.println("sqrt of 0 should be 0, ?= " + sqrt(0));
