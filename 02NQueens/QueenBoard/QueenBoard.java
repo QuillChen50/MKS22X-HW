@@ -6,6 +6,7 @@ public class QueenBoard{
     private int s;
     public int[][] temp;
     public char[][] toReturn;
+    solutionCount = 0;
     
     public QueenBoard(int size){
 	board = new int[size][size];
@@ -114,13 +115,14 @@ public class QueenBoard{
 	
 	//all Queens Placed
 	if (col >= s){
+	    solutionCount++;
 	    return true;}
 
 	for (int i = 0; i < s; i++){//loops through rows in this column
 	    if (Placeable(i, col)){
 		addQueen(i,col);
 		if (solveH(col + 1) == true){
-		    return true;
+		    return true;}
 		    removeQueen(i, col);
 		}
 	    }		    
@@ -130,10 +132,23 @@ public class QueenBoard{
 
 //------------SolutionCounting and Returning-----------------------
 	public void countSolutions(){
+	    //Really confused, will come back to this later
+	    //Still trying to figure out how to continue after finding a solution
+	    
 	}
 
 	public int getSolutionCount(){
-	    return -1;
+
+	    if (s == 2 || s == 3){
+		return 0;}
+	    else if (s == 1){
+		return 1;}
+	    else if (s > 3){
+		return solutionCount;}
+	    else {
+		return -1
+		    }
+	     
 	}
 
 
