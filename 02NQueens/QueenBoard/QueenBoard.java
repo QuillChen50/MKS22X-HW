@@ -39,7 +39,7 @@ public class QueenBoard{
 	int l = c;
 
 	//check side
-	for (int n = 0 ; i < col; i++){
+	for (int n = 0 ; i < c; i++){
 	    if (temp[r][n] >= 1 || temp[r][i] == -1){
 		return false;
 	    }}
@@ -52,7 +52,7 @@ public class QueenBoard{
 	
 	//check lower left diagonal
 	for (; k < s && l >= 0; k++, l--){
-	    if (temp[i][j] >= 1 || temp[i][j] == -1){
+	    if (temp[k][l] >= 1 || temp[k][l] == -1){
 		return false;
 	    }}
 	return true;
@@ -65,7 +65,7 @@ public class QueenBoard{
 	int k = r;
 	int l = c;
 
-	for (int n = 0 ; i < col; i++){
+	for (int n = 0 ; i < c; i++){
 	    if (temp[r][n] >= 1){
 	        temp[r][n] = temp[r][i] - 1;
 	    }}
@@ -78,8 +78,8 @@ public class QueenBoard{
 	
 	//check lower left diagonal
 	for (; k < s && l >= 0; k++, l--){
-	    if (temp[i][j] >= 1){
-	        temp[i][j] = temp[i][j] - 1;
+	    if (temp[k][l] >= 1){
+	        temp[k][l] = temp[k][l] - 1;
 	    }}
    
     }
@@ -103,8 +103,8 @@ public class QueenBoard{
 	
 	//check lower left diagonal
 	for (; k < s && l >= 0; k++, l--){
-	    if (temp[i][j] >= 0){
-	        temp[i][j] = temp[i][j] + 1;
+	    if (temp[k][l] >= 0){
+	        temp[k][l] = temp[k][l] + 1;
 	    }}
    
     }
@@ -114,11 +114,12 @@ public class QueenBoard{
     //------------Solves--------------------------
 
     public boolean solve(){
-
+	/*don't need this
 	if (solveH(0) == false){
 	    System.out.println("No Solution");
 	    return false;
 	}
+	*/
 	
 	return solveH(0);
     }
@@ -144,23 +145,23 @@ public class QueenBoard{
 
 //------------SolutionCounting and Returning-----------------------
     public void countSolutions(){
+	solutionCount = -1;
 	countH(0);
     }
 
 
 	public boolean countH(int col){
-	    solutionCount = -1;
 	    //all Queens Placed
 	if (col >= s){
 		solutionCount++;}
 	for (int i = 0; i < s; i++){//loops through rows in this column
 	    if (Placeable(i, col)){
 		addQueen(i,col);
-		if (countH(col + 1) == true){
-		    }
-		    removeQueen(i, col);
-		}
+		countH(col + 1);
+   	        removeQueen(i, col);
 	    }
+	}
+	return true;
 	}
 
 	public int getSolutionCount(){
@@ -199,6 +200,13 @@ public class QueenBoard{
 	
 	    return sReturn;
 	}
-	    
+
+    public static void main (String [] args){
+	QueenBoard x = new QueenBoard(7);
+	x.solve();
+	System.out.println(x);
+	x.countSolutions();
+	System.out.println(x.getSolutionCount());
+    }
 
 }
