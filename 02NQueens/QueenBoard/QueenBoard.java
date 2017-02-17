@@ -45,7 +45,7 @@ public class QueenBoard{
 	    }}
 	
 	//check upper left diagonal
-	for (; i >= 0 && j >= 0; i--, j--){
+	for (; (i >= 0 && i <= 6) && j >= 0; i--, j--){
 	    if (temp[i][j] >= 1 || temp[i][j] == -1){
 		return false;
 	    }}
@@ -131,17 +131,21 @@ public class QueenBoard{
 	//all Queens Placed
 	if (col >= s){
 	    return true;}
-
+	for (int c = col; c < s; col ++){
 	for (int i = 0; i < s; i++){//loops through rows in this column
 	    if (Placeable(i, col)){
 		addQueen(i,col);
 		if (solveH(col + 1) == true){
 		    return true;}
-		    removeQueen(i, col);
-		}
-	    }		    
+		    else { 
+			removeQueen(i, col);}
+	    
+	}
+	}
+	}		    
 	    return false;//if doesn't place anywhere
-    }
+	}
+    
 
 //------------SolutionCounting and Returning-----------------------
     public void countSolutions(){
