@@ -36,7 +36,7 @@ public class KnightBoard{
 	public String toStringH(){
 	    finalNum = board.length;
 	    String result = "";
-	    n == 0
+	    n = 0;
 	    while (n < finalNum){
 		if (n%cols == 0){
 		    result = result + System.lineSeparator() + " " + "__";
@@ -54,23 +54,24 @@ public class KnightBoard{
 
 	    if (solveH(startingrow,startingco,0)){
 		printBoard();}
-	    else (
+	    else {
 		  System.out.println("No Path Found");
 		  }
 	}
 	    
 		
-	}
 
         private boolean solveH(int r ,int c, int level){ // level is the # of the knight
 
 	    //base cases
 	        // current square shouldn't be in use 
 		if (Board[r][c] != 0) {
-			return false;
-		}
-		// mark the current cell  as used
-	        Board[r][c] = index++;
+		    return false;}
+		// else mark the current cell  as used
+		if (Board[r][c] == 0) {
+			Board[r][c] = level++;
+			    }
+
 		// if (index == 50) {
 		if (level == finalNum) {
 			// When reach finalNum, we have solved it successfully
@@ -85,62 +86,60 @@ public class KnightBoard{
 
 
 		// move down and left
-		if (safeH(r + 2, c - 1)
-		    && legal(r + 2, c - 1, level + 1)) {
+		if ((safeH(r + 2, c - 1) == true)
+		    && (legal(r + 2, c - 1, level + 1) == true)) {
 			return true;
 		}
 
 	        // move left and down
-		if (safeH(r + 1, c - 2)
-				&& legal(r + 1, c - 2, level + 1)) {
+		if ((safeH(r + 1, c - 2) == true)
+		    && (legal(r + 1, c - 2, level + 1) == true)) {
 			return true;
 		}
 
 	        // move left and up
-		if (safeH(r - 1, c - 2)
-				&& legal(r - 1, c - 2, level + 1)) {
+		if ((safeH(r - 1, c - 2) == true)
+		    && (legal(r - 1, c - 2, level + 1) == true)) {
 			return true;
 		}
 
 	        // move up and left
-		if (safeH(r - 2, c - 1)
-				&& legal(r - 2, c - 1, level + 1)) {
+		if ((safeH(r - 2, c - 1) == true)
+		    && (legal(r - 2, c - 1, level + 1) == true)) {
 			return true;
 		}
 
 	        // move up and right
-		if (safeH(r - 2, c + 1)
-				&& findH(r - 2, c + 1, level + 1)) {
+	        if ((safeH(r - 2, c + 1) == true)
+		    && (legal(r - 2, c + 1, level + 1) == true)) {
 			return true;
 			
 		}
 
 	        // move right and up
-		if (safeH(r - 1, c + 2)
-				&& legal(r - 1, c + 2, level + 1)) {
+	        if ((safeH(r - 1, c + 2) == true)
+		    && (legal(r - 1, c + 2, level + 1) == true)) {
 			return true;
 					}
 	        // move right and down
-		if (safeH(r + 1, c + 2)
-				&& legal(r + 1, c + 2, level + 1)) {
+	        if ((safeH(r + 1, c + 2) == true)
+		    && (legal(r + 1, c + 2, level + 1) == true)) {
 			return true;
 		}
 
 		// move down and right
-		if (safeH(r + 2, c + 1)
-				&& legal(r + 2, c + 1, level + 1)) {
+	        if ((safeH(r + 2, c + 1) == true)
+		    && (legal(r + 2, c + 1, level + 1) == true)) {
 			return true;
 		}
 
 		
 		// if we are here means nothing has worked , backtrack
-		else{
+	       
 	        Board[r][c] = 0;
 		index--;
 		return false;
-		}
 
-	
 	}
 
 //a repeated step is checking to make sure the night is still on the board
