@@ -6,14 +6,17 @@ public class KnightBoard{
     private int finalNum;
     private int rows;
     private int cols;
+    private int startingrow;
+    private int startingcol;
     
     
     
     public KnightBoard(int startingRows,int startingCols){
+        board = new int [startingRows][startingCols];
 	finalNum = board.length;
 	rows = startingRows;
 	cols = startingCols;
-        board = new int [startingRows][startingCols];
+
 	for (int i = 0; i < finalNum; i++){
 	   for (int j = 0; j < finalNum; i++){ 
 	       board[i][j] = 0;
@@ -49,7 +52,7 @@ public class KnightBoard{
 
 	public void solve(){
 
-	    if (solveH(0,0,0)){
+	    if (solveH(startingrow,startingco,0)){
 		printBoard();}
 	    else (
 		  System.out.println("No Path Found");
@@ -77,36 +80,9 @@ public class KnightBoard{
 		
 		// Possible Moves [recursive]
 		//experiment with which moves going first would allow fastest 
-		// move down and right
-		if (safeH(r + 2, c + 1)
-				&& legal(r + 2, c + 1, level + 1)) {
-			return true;
-		}
-		// move right and down
-		if (safeH(r + 1, c + 2)
-				&& legal(r + 1, c + 2, level + 1)) {
-			return true;
-		}
-		// move right and up
-		if (safeH(r - 1, c + 2)
-				&& legal(r - 1, c + 2, level + 1)) {
-			return true;
-		}
-		// move up and right
-		if (safeH(r - 2, c + 1)
-				&& findH(r - 2, c + 1, level + 1)) {
-			return true;
-		}
-		// move up and left
-		if (safeH(r - 2, c - 1)
-				&& legal(r - 2, c - 1, level + 1)) {
-			return true;
-		}
-		// move left and up
-		if (safeH(r - 1, c - 2)
-				&& legal(r - 1, c - 2, level + 1)) {
-			return true;
-		}
+
+
+
 
 		// move down and left
 		if (safeH(r + 2, c - 1)
@@ -119,6 +95,43 @@ public class KnightBoard{
 				&& legal(r + 1, c - 2, level + 1)) {
 			return true;
 		}
+
+	        // move left and up
+		if (safeH(r - 1, c - 2)
+				&& legal(r - 1, c - 2, level + 1)) {
+			return true;
+		}
+
+	        // move up and left
+		if (safeH(r - 2, c - 1)
+				&& legal(r - 2, c - 1, level + 1)) {
+			return true;
+		}
+
+	        // move up and right
+		if (safeH(r - 2, c + 1)
+				&& findH(r - 2, c + 1, level + 1)) {
+			return true;
+			
+		}
+
+	        // move right and up
+		if (safeH(r - 1, c + 2)
+				&& legal(r - 1, c + 2, level + 1)) {
+			return true;
+					}
+	        // move right and down
+		if (safeH(r + 1, c + 2)
+				&& legal(r + 1, c + 2, level + 1)) {
+			return true;
+		}
+
+		// move down and right
+		if (safeH(r + 2, c + 1)
+				&& legal(r + 2, c + 1, level + 1)) {
+			return true;
+		}
+
 		
 		// if we are here means nothing has worked , backtrack
 		else{
