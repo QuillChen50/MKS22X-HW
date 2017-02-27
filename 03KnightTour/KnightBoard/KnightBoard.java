@@ -1,23 +1,51 @@
-import java.text.DecimalFormat
+import java.text.DecimalFormat;
 
 public class KnightBoard{
     private int[][] board;
     private int index;
     private int finalNum;
+    private int rows;
+    private int cols;
+    
     
     
     public KnightBoard(int startingRows,int startingCols){
-	solution = new int [startingRows][startingCols];
-	for (int i = 0; i < N; i++){
-	   for (int j = 0; j < N; i++){ 
+	finalNum = board.length;
+	rows = startingRows;
+	cols = startingCols;
+        board = new int [startingRows][startingCols];
+	for (int i = 0; i < finalNum; i++){
+	   for (int j = 0; j < finalNum; i++){ 
 	       board[i][j] = 0;
 	   }
 	}
-	finalNum = board.length;
     }
 	    
 
-	public String toString() //blank if you never called solve or when there is no solution
+    public String toString(){ //blank if you never called solve or when there is no solution
+	if (solveH() != true){
+	    return toStringH();}
+	else {
+	    return printBoard();
+	}
+    }
+
+	public String toStringH(){
+	    finalNum = board.length;
+	    String result = "";
+	    n == 0
+	    while (n < finalNum){
+		if (n%cols == 0){
+		    result = result + System.lineSeparator() + " " + "__";
+		}
+		    else{
+		result = result + " " + "__";
+		    n++;
+		    }
+	   }
+	    return result;
+	}
+	    
 
 	public void solve(){
 
@@ -51,17 +79,17 @@ public class KnightBoard{
 		//experiment with which moves going first would allow fastest 
 		// move down and right
 		if (safeH(r + 2, c + 1)
-				&& findH(r + 2, c + 1, level + 1)) {
+				&& legal(r + 2, c + 1, level + 1)) {
 			return true;
 		}
 		// move right and down
 		if (safeH(r + 1, c + 2)
-				&& findH(r + 1, c + 2, level + 1)) {
+				&& legal(r + 1, c + 2, level + 1)) {
 			return true;
 		}
 		// move right and up
 		if (safeH(r - 1, c + 2)
-				&& findH(r - 1, c + 2, level + 1)) {
+				&& legal(r - 1, c + 2, level + 1)) {
 			return true;
 		}
 		// move up and right
@@ -71,12 +99,12 @@ public class KnightBoard{
 		}
 		// move up and left
 		if (safeH(r - 2, c - 1)
-				&& findH(r - 2, c - 1, level + 1)) {
+				&& legal(r - 2, c - 1, level + 1)) {
 			return true;
 		}
 		// move left and up
 		if (safeH(r - 1, c - 2)
-				&& findH(r - 1, c - 2, level + 1)) {
+				&& legal(r - 1, c - 2, level + 1)) {
 			return true;
 		}
 
@@ -88,7 +116,7 @@ public class KnightBoard{
 
 	        // move left and down
 		if (safeH(r + 1, c - 2)
-				&& findH(r + 1, c - 2, level + 1)) {
+				&& legal(r + 1, c - 2, level + 1)) {
 			return true;
 		}
 		
@@ -105,7 +133,7 @@ public class KnightBoard{
 //a repeated step is checking to make sure the night is still on the board
 
 public boolean legal(int r, int c){
-    if (col >= 0 && col < finalNum && row >= 0 && r < finalNum){
+    if (c >= 0 && c < finalNum && r >= 0 && r < finalNum){
 	return true;}
     else{
 	return false;
