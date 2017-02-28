@@ -166,7 +166,7 @@ public class KnightBoard{
 	}
 	}
 	catch(ArrayIndexOutOfBoundsException e){
-	    System.out.println ("No solution or invalid Board or solve wasn't run");
+	    // System.out.println ("No solution or invalid Board or solve wasn't run");
 	    return printBlankBoard();
 	}
 
