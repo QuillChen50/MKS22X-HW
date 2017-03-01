@@ -6,11 +6,13 @@ public class QueenBoard{
     private int s;
     public int[][] temp;
     public char[][] toReturn;
+    public boolean blank;
     
     public QueenBoard(int size){
 	board = new int[size][size];
 	temp = new int[size][size];
 	s = size;
+	blank = false;
     }
 
     public int getSize(){
@@ -20,13 +22,13 @@ public class QueenBoard{
     //----------------Adding/Removing Queens---------------
 
     private void addQueen(int r, int c){
-	System.out.println(r);
-	System.out.println(c);
-	System.out.println(temp.length);
-	System.out.println(temp[0].length);
+	//System.out.println(r);
+	//System.out.println(c);
+	//System.out.println(temp.length);
+	//System.out.println(temp[0].length);
 	temp[r][c] = -1;
-	System.out.println("" + r + "," + c);
-	System.out.println("" + temp[r][c]);
+	//System.out.println("" + r + "," + c);
+	//System.out.println("" + temp[r][c]);
 	addThreats(r,c);
 	
     }
@@ -74,41 +76,42 @@ public class QueenBoard{
 	    }}
 	
 	//check upper right diagonal
-	for (; r >= 0 && c < s-1; r--, c--){
+	for (; r > 0 && c < s-1; r--, c++){
 	    if (temp[r][c] >= 1){
 	        temp[r][c] = temp[r][c] - 1;
 	    }}
 	
 	//check lower right diagonal
 	for (; r < s-1 && c < s-1 ; r++, c++){
-	    if (temp[r+1][c+1] >= 1){
-	        temp[r+1][c+1] = temp[r+1][c+1] - 1;
+	    if (temp[r][c] >= 1){
+	        temp[r][c] = temp[r+1][c+1] - 1;
 	    }}
    
     }
 
     private void addThreats(int r, int c){
 	for (int n = 0 ; n < c; n++){
-	    System.out.println("hello");
+	    //System.out.println("hello");
 	    if (temp[r][n] >= 1){
 	        temp[r][n] = temp[r][n] + 1;
 	    }
 	}
 	
 	//check upper right diagonal
-	for (; r >= 0 && c < s-1; r--, c--){
-	    System.out.println("hi");
+	for (; r > 0 && c < s-1; r--, c++){
+	    //System.out.println("hi");
 	    if (temp[r][c] >= 1){
 	        temp[r][c] = temp[r][c] + 1;
+		System.out.println("" + r + "," + c);
 	    }}
 	
 	//check lower right diagonal
 	for (; r < s-1 && c < s-1 ; r++, c++){
-	    System.out.println("bye");
-	    if (temp[r+1][c+1] >= 1){
-	        temp[r+1][c+1] = temp[r+1][c+1] + 1;
+	    //System.out.println("bye");
+	    if (temp[r][c] >= 1){
+	        temp[r][c] = temp[r+1][c+1] + 1;
 	    }}
-	System.out.println("die");
+	//System.out.println("die");
     }
 
     
@@ -126,7 +129,9 @@ public class QueenBoard{
 	return solveH(0);
 	}
 	catch (ArrayIndexOutOfBoundsException e){
-	    
+	    blank = true;
+	    return false;
+	}
     }
     
 
@@ -138,7 +143,7 @@ public class QueenBoard{
 	    return true;
 	}
 	//	for (int c = col; c < s; col ++){
-	for (int i = 0; i < s-1; i++){//loops through rows in this column
+	for (int i = 0; i < s; i++){//loops through rows in this column
 	    if (Placeable(i, col)){
 		addQueen(i,col);
 		if (solveH(col + 1)){
@@ -166,10 +171,16 @@ public class QueenBoard{
 	    //all Queens Placed
 	if (col == s-1){
 		solutionCount++;}
-	for (int i = 0; i < s-1; i++){//loops through rows in this column
+	for (int i = 0; i < s; i++){//loops through rows in this column
 	    if (Placeable(i, col)){
 		addQueen(i,col);
-		countH(col + 1);
+		//	try{
+			    countH(col + 1); 
+			    //	}
+			    //	catch (ArrayIndexOutOfBoundsException e){
+			    //   blank = true;
+			    //  return false;
+			    //	}
    	        removeQueen(i, col);
 	    }
 	}
@@ -190,10 +201,27 @@ public class QueenBoard{
 	     
 	}
 
+	public String blankBoard(){
+	    toReturn = new char[s][s];
+	    String sReturn = "";
+	    for (int i = 0; i < s; i++){
+		sReturn = sReturn + "\n";
+		for (int j = 0; j < s; j++){
+		    sReturn = sReturn + "_ ";}
+		
+	    }
+	    return sReturn;
+	}
+
  
 
 
 	public String toString(){
+
+	    if (blank = true){
+		return blankBoard();
+	    }
+	    
 	    toReturn = new char[s][s];
 	    String sReturn = "";
 	    //converting int[][] to char[][]
