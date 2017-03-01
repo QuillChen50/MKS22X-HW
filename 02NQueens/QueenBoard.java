@@ -20,8 +20,15 @@ public class QueenBoard{
     //----------------Adding/Removing Queens---------------
 
     private void addQueen(int r, int c){
+	System.out.println(r);
+	System.out.println(c);
+	System.out.println(temp.length);
+	System.out.println(temp[0].length);
 	temp[r][c] = -1;
+	System.out.println("" + r + "," + c);
+	System.out.println("" + temp[r][c]);
 	addThreats(r,c);
+	
     }
 
     private void removeQueen(int r, int c){
@@ -32,82 +39,76 @@ public class QueenBoard{
 
     //----------------ExtrasHelpful---------------------------
     private boolean Placeable(int r, int c){
-	//only need to check left side and left diagonals (uperp and lower)
-	int i = r;
-	int j = c;
-	int k = r;
-	int l = c;
+	//only need to check left side and left diagonals (upper and lower)
 
 	//check side 
-	for (int n = 0 ; i < c; i++){
-	    if (temp[r][n] >= 1 || temp[r][i] == -1){
+	for (; c < s-1 ; c++){
+	    if ( temp[r][c+1] >= 1 || temp[r][c+1] == -1){
+		System.out.println("" + r + "," + c );
 		return false;
-	    }}
+	    }
+	}
 	
-	//check upper left diagonal
-	for (; (i >= 0 && i <= 6) && j >= 0; i--, j--){
-	    if (temp[i][j] >= 1 || temp[i][j] == -1){
+	//check upper right diagonal
+	for (; r >= 0 && c < s-1 && c >= 0; r--, c--){
+	    if (temp[r-1][c+1] >= 1 || temp[r-1][c+1] == -1){
 		return false;
-	    }}
+	    }
+	}
 	
-	//check lower left diagonal
-	for (; l >= 0 && k < s-1; k++, l--){
-	    if (temp[k][l] >= 1 || temp[k][l] == -1){
-		System.out.println("" +  k + " " + l);
+	//check lower right diagonal
+	for (; r < s-1 && c < s-1; r++, c++){
+	    if (temp[r][c] >= 1 || temp[r][c] == -1){
 		return false;
-	    }}
+	    }
+	}
 	return true;
 	    
     }
 
     private void removeThreats(int r, int c){
-	int i = r;
-	int j = c;
-	int k = r;
-	int l = c;
 
-	for (int n = 0 ; i < c; i++){
+	for (int n = 0 ; n < c; n++){
 	    if (temp[r][n] >= 1){
-	        temp[r][n] = temp[r][i] - 1;
+	        temp[r][n] = temp[r][n] - 1;
 	    }}
 	
-	//check upper left diagonal
-	for (; i >= 0 && j >= 0; i--, j--){
-	    if (temp[i][j] >= 1){
-	        temp[i][j] = temp[i][j] - 1;
+	//check upper right diagonal
+	for (; r >= 0 && c < s-1; r--, c--){
+	    if (temp[r][c] >= 1){
+	        temp[r][c] = temp[r][c] - 1;
 	    }}
 	
-	//check lower left diagonal
-	for (; k < s && l >= 0; k++, l--){
-	    if (temp[k][l] >= 1){
-	        temp[k][l] = temp[k][l] - 1;
+	//check lower right diagonal
+	for (; r < s-1 && c < s-1 ; r++, c++){
+	    if (temp[r+1][c+1] >= 1){
+	        temp[r+1][c+1] = temp[r+1][c+1] - 1;
 	    }}
    
     }
 
     private void addThreats(int r, int c){
-	int i = r;
-	int j = c;
-	int k = r;
-	int l = c;
-
-	for (int n = 0 ; i < c; i++){
-	    if (temp[r][n] >= 0){
-	        temp[r][n] = temp[r][i] + 1;
+	for (int n = 0 ; n < c; n++){
+	    System.out.println("hello");
+	    if (temp[r][n] >= 1){
+	        temp[r][n] = temp[r][n] + 1;
+	    }
+	}
+	
+	//check upper right diagonal
+	for (; r >= 0 && c < s-1; r--, c--){
+	    System.out.println("hi");
+	    if (temp[r][c] >= 1){
+	        temp[r][c] = temp[r][c] + 1;
 	    }}
 	
-	//check upper left diagonal
-	for (; i >= 0 && j >= 0; i--, j--){
-	    if (temp[i][j] >= 0){
-	        temp[i][j] = temp[i][j] + 1;
+	//check lower right diagonal
+	for (; r < s-1 && c < s-1 ; r++, c++){
+	    System.out.println("bye");
+	    if (temp[r+1][c+1] >= 1){
+	        temp[r+1][c+1] = temp[r+1][c+1] + 1;
 	    }}
-	
-	//check lower left diagonal
-	for (; k < s && l >= 0; k++, l--){
-	    if (temp[k][l] >= 0){
-	        temp[k][l] = temp[k][l] + 1;
-	    }}
-   
+	System.out.println("die");
     }
 
     
@@ -121,8 +122,11 @@ public class QueenBoard{
 	    return false;
 	}
 	*/
-	
+	try{
 	return solveH(0);
+	}
+	catch (ArrayIndexOutOfBoundsException e){
+	    
     }
     
 
@@ -130,22 +134,25 @@ public class QueenBoard{
 	//Base Cases
 	
 	//all Queens Placed
-	if (col >= s){
-	    return true;}
-	for (int c = col; c < s; col ++){
-	for (int i = 0; i < s; i++){//loops through rows in this column
+	if (col == s-1){
+	    return true;
+	}
+	//	for (int c = col; c < s; col ++){
+	for (int i = 0; i < s-1; i++){//loops through rows in this column
 	    if (Placeable(i, col)){
 		addQueen(i,col);
-		if (solveH(col + 1) == true){
-		    return true;}
-		    else { 
-			removeQueen(i, col);}
-	    
-	}
-	}
+		if (solveH(col + 1)){
+		    return true;
+		}
+		else { 
+		    removeQueen(i, col);
+		}
+		
+		//	}
+	    }
 	}		    
-	    return false;//if doesn't place anywhere
-	}
+	return false;//if doesn't place anywhere
+    }
     
 
 //------------SolutionCounting and Returning-----------------------
@@ -157,9 +164,9 @@ public class QueenBoard{
 
 	public boolean countH(int col){
 	    //all Queens Placed
-	if (col >= s){
+	if (col == s-1){
 		solutionCount++;}
-	for (int i = 0; i < s; i++){//loops through rows in this column
+	for (int i = 0; i < s-1; i++){//loops through rows in this column
 	    if (Placeable(i, col)){
 		addQueen(i,col);
 		countH(col + 1);
@@ -182,6 +189,8 @@ public class QueenBoard{
 		    }
 	     
 	}
+
+ 
 
 
 	public String toString(){
