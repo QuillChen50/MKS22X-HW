@@ -7,12 +7,14 @@ public class QueenBoard{
     public int[][] temp;
     public char[][] toReturn;
     public boolean blank;
+    public String sReturn;
     
     public QueenBoard(int size){
 	board = new int[size][size];
 	temp = new int[size][size];
 	s = size;
 	blank = false;
+	solutionCount = -1;
     }
 
     public int getSize(){
@@ -46,20 +48,20 @@ public class QueenBoard{
 	//check side 
 	for (; c < s-1 ; c++){
 	    if ( temp[r][c+1] >= 1 || temp[r][c+1] == -1){
-		System.out.println("" + r + "," + c );
+		//****	System.out.println("" + r + "," + c );
 		return false;
 	    }
 	}
 	
 	//check upper right diagonal
-	for (; r >= 0 && c < s-1 && c >= 0; r--, c--){
-	    if (temp[r-1][c+1] >= 1 || temp[r-1][c+1] == -1){
+	for (; r >= 0 && c < s && c >= 0; r--, c++){
+	    if (temp[r][c] >= 1 || temp[r][c] == -1){
 		return false;
 	    }
 	}
 	
 	//check lower right diagonal
-	for (; r < s-1 && c < s-1; r++, c++){
+	for (; r < s-1 && c < s; r++, c++){
 	    if (temp[r][c] >= 1 || temp[r][c] == -1){
 		return false;
 	    }
@@ -76,15 +78,15 @@ public class QueenBoard{
 	    }}
 	
 	//check upper right diagonal
-	for (; r > 0 && c < s-1; r--, c++){
+	for (; r >= 0 && c < s; r--, c++){
 	    if (temp[r][c] >= 1){
 	        temp[r][c] = temp[r][c] - 1;
 	    }}
 	
 	//check lower right diagonal
-	for (; r < s-1 && c < s-1 ; r++, c++){
+	for (; r < s-1 && c < s; r++, c++){
 	    if (temp[r][c] >= 1){
-	        temp[r][c] = temp[r+1][c+1] - 1;
+	        temp[r][c] = temp[r][c] - 1;
 	    }}
    
     }
@@ -98,18 +100,18 @@ public class QueenBoard{
 	}
 	
 	//check upper right diagonal
-	for (; r > 0 && c < s-1; r--, c++){
+	for (; r >= 0 && c < s; r--, c++){
 	    //System.out.println("hi");
 	    if (temp[r][c] >= 1){
 	        temp[r][c] = temp[r][c] + 1;
-		System.out.println("" + r + "," + c);
+		//****	System.out.println("" + r + "," + c);
 	    }}
 	
 	//check lower right diagonal
-	for (; r < s-1 && c < s-1 ; r++, c++){
+	for (; r < s-1 && c < s; r++, c++){
 	    //System.out.println("bye");
 	    if (temp[r][c] >= 1){
-	        temp[r][c] = temp[r+1][c+1] + 1;
+	        temp[r][c] = temp[r][c] + 1;
 	    }}
 	//System.out.println("die");
     }
@@ -120,136 +122,153 @@ public class QueenBoard{
 
     public boolean solve(){
 	/*don't need this
-	if (solveH(0) == false){
-	    System.out.println("No Solution");
-	    return false;
-	}
+	  if (solveH(0) == false){
+	  System.out.println("No Solution");
+	  return false;
+	  }
 	*/
+	int col = 0;
 	try{
-	return solveH(0);
+	    for (;col < s-1; col++){
+		if (solveH(col)){
+		    solveH(col+1);}}
 	}
 	catch (ArrayIndexOutOfBoundsException e){
 	    blank = true;
 	    return false;
 	}
+	return true;
     }
     
 
     private boolean solveH(int col){
-	//Base Cases
-	
-	//all Queens Placed
+
+	//All Queens Placed
 	if (col == s-1){
 	    return true;
 	}
 	//	for (int c = col; c < s; col ++){
-	for (int i = 0; i < s; i++){//loops through rows in this column
+	for (int i = 0; i < s-1; i++){//loops through rows in this column
+ 
 	    if (Placeable(i, col)){
 		addQueen(i,col);
-		if (solveH(col + 1)){
-		    return true;
-		}
-		else { 
-		    removeQueen(i, col);
-		}
+		System.out.println("Add Queen" + "/n" + sReturn);
+		return solveH(col + 1);}//{
+	    //System.out.println("" + col);
+	    //  return true;
+	    //	}
+	        
+	    removeQueen(i, col);
+	    System.out.println("Remove Queen" + "/n" + sReturn);
+	    //solveH(col);
 		
-		//	}
-	    }
-	}		    
+		
+	       
+	}
+			    
 	return false;//if doesn't place anywhere
     }
     
 
-//------------SolutionCounting and Returning-----------------------
-    public void countSolutions(){
-	solutionCount = -1;
-	countH(0);
-    }
+    //------------SolutionCounting and Returning-----------------------
 
 
-	public boolean countH(int col){
-	    //all Queens Placed
+
+    public boolean countH(int col){
+	//all Queens Placed
 	if (col == s-1){
-		solutionCount++;}
+	    solutionCount++;
+	}
 	for (int i = 0; i < s; i++){//loops through rows in this column
 	    if (Placeable(i, col)){
 		addQueen(i,col);
-		//	try{
-			    countH(col + 1); 
-			    //	}
-			    //	catch (ArrayIndexOutOfBoundsException e){
-			    //   blank = true;
-			    //  return false;
-			    //	}
+		//	System.out.println("" + col);
+		try{
+		    countH(col + 1); 
+		}
+		catch (ArrayIndexOutOfBoundsException e){
+		    System.out.println("" + col);
+		    blank = true;
+		    return false;
+		}
    	        removeQueen(i, col);
 	    }
 	}
 	return true;
+    }
+
+    public int getSolutionCount(){
+
+	if (s == 2 || s == 3){
+	    return 0;}
+	else if (s == 1){
+	    return 1;}
+	else if (s > 3){
+	    return solutionCount;}
+	else {
+	    return -1;
 	}
-
-	public int getSolutionCount(){
-
-	    if (s == 2 || s == 3){
-		return 0;}
-	    else if (s == 1){
-		return 1;}
-	    else if (s > 3){
-		return solutionCount;}
-	    else {
-		return -1;
-		    }
 	     
-	}
+    }
 
-	public String blankBoard(){
-	    toReturn = new char[s][s];
-	    String sReturn = "";
-	    for (int i = 0; i < s; i++){
-		sReturn = sReturn + "\n";
-		for (int j = 0; j < s; j++){
-		    sReturn = sReturn + "_ ";}
+    public String blankBoard(){
+	toReturn = new char[s][s];
+	for (int i = 0; i < s; i++){
+	    sReturn = sReturn + "\n";
+	    for (int j = 0; j < s; j++){
+		sReturn = sReturn + "_ ";}
 		
-	    }
-	    return sReturn;
 	}
-
+	return sReturn;
+    }
+    
+    public void countSolutions(){
+	solutionCount = 0;
+	int col = 0;
+	for (;col < s; col++){
+	    countH(col);
+	}
+   
+	    
+    }
  
 
 
-	public String toString(){
-
-	    if (blank = true){
-		return blankBoard();
-	    }
+    public String toString(){
+	/*
+	  if (blank = true){
+	  return blankBoard();
+	  }
+	*/
 	    
-	    toReturn = new char[s][s];
-	    String sReturn = "";
-	    //converting int[][] to char[][]
-	    for (int i = 0; i < s; i++){
-		for (int j = 0; j < s; j++){
-		    if (temp[i][j] == -1){
-			toReturn[i][j] = 'Q';}
-		    else {
-			toReturn[i][j] = '_';}
-		}
+	toReturn = new String[s][s];
+	//converting int[][] to char[][]
+	for (int i = 0; i < s; i++){
+	    for (int j = 0; j < s; j++){
+		if (temp[i][j] == -1){
+		    toReturn[i][j] = "Q";}
+		else {
+		    toReturn[i][j] = "_";}
 	    }
-	    
-	    //returning info from char[][]
-	    for (int i = 0; i < s; i++){
-		sReturn = sReturn + System.lineSeparator();
-		for (int j = 0; j < s; j++){
-		    sReturn = sReturn + " " + toReturn[i][j];}}
-	
-	    return sReturn;
 	}
-    /*
+	    
+	//returning info from char[][]
+	for (int i = 0; i < s; i++){
+	    sReturn = sReturn + System.lineSeparator();
+	    for (int j = 0; j < s; j++){
+		sReturn = sReturn + " " + toReturn[i][j];}}
+	
+	return sReturn;
+    }
+    
     public static void main (String [] args){
-	QueenBoard x = new QueenBoard(7);
+	QueenBoard x = new QueenBoard(8);
+	System.out.println(x);
 	x.solve();
 	System.out.println(x);
-	x.countSolutions();
-	System.out.println(x.getSolutionCount());
+	//	x.countSolutions();
+	//	System.out.println(x.getSolutionCount());
     }
-    */
+    
 
 }
