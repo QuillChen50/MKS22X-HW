@@ -75,11 +75,11 @@ public class QueenBoard{
 
 	for (int i = 1; (i < s-1) && (c+i < s) && (r+i < s); i++){
 
-	    if (r-i > 0){
-		;
+	    if ((r-i > 0) && (board[r-1][c+i] >= 1 || board[r-1][c+i] == -1)){
+		return false;
 	    }
-	    if (r+i < s){
-		board[r+i][c+i] += 1;
+	    if ((r+i < s) && (board[r+1][c+i] >= 1 || board[r+1][c+1] == -1){
+		return false;
 	    }
 	    board[r][c] +=1;
 
@@ -90,7 +90,7 @@ public class QueenBoard{
 
     private void removeThreats(int r, int c){
 	
-	for (int i = 1; (i < s-1) && (c+i < s) && (r+i < s); i++){
+	for (int i = 1; (i < s-1) && (c+i < s); i++){
 	    if (r-i > 0){
 		board[r-i][c+i] += 1;
 	    }
