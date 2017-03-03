@@ -24,7 +24,7 @@ public class QueenBoard{
 	//System.out.println(c);
 	//System.out.println(temp.length);
 	//System.out.println(temp[0].length);
-	board[r][c] = -1;
+	System.out.println("Running addQueens");
 	System.out.println("" + r + "," + c);
 	//System.out.println("" + temp[r][c]);
 	addThreats(r,c);
@@ -33,7 +33,6 @@ public class QueenBoard{
     }
 
     private void removeQueen(int r, int c){
-	board[r][c] = 0;
 	removeThreats(r,c);
 	//printArray();
     }
@@ -49,107 +48,128 @@ public class QueenBoard{
 	int e = c;
 	//check side 
 	for (int n = 0; n < s ; n++){
-	    if ( board[r][n] >= 1 || board[r][n] == -1){
-		System.out.println("side check: " + r + "," + n );
-		return false;
-	    }
+	if ( board[r][n] >= 1 || board[r][n] == -1){
+	System.out.println("side check: " + r + "," + n );
+	return false;
+	}
 	}
 	
 	//check upper right diagonal
 	for (; a >= 0 && b < s  ; a--, b++){
-	    if (board[a][b] >= 1 || board[a][b] == -1){
-		System.out.println("up-right diagonal check: " + a + "," + b );
-		return false;
-	    }
+	if (board[a][b] >= 1 || board[a][b] == -1){
+	System.out.println("up-right diagonal check: " + a + "," + b );
+	return false;
+	}
 	}
 	
 	//check lower right diagonal
 	for (; d < s && e < s; d++, e++){
-	    if (board[d][e] >= 1 || board[d][e] == -1){
-		System.out.println("down-right diagonal check: " + d + "," + e );
-		return false;
-	    }
+	if (board[d][e] >= 1 || board[d][e] == -1){
+	System.out.println("down-right diagonal check: " + d + "," + e );
+	return false;
+	}
 	}
 	return true;
 	*/
 
-	for (int i = 1; (i < s-1) && (c+i < s) && (r+i < s); i++){
+	System.out.println(this);
+	System.out.println(r);
+	System.out.println(c);
+	//OMG, I was checking for colmns without threat so that's why my code wasn't working
+	for (int i = 1; (i < s-1) && (c+i < s); i++){
 
-	    if ((r-i > 0) && (board[r-1][c+i] >= 1 || board[r-1][c+i] == -1)){
+	    if ((r-i > 0) && (board[r-1][c+i] == -1)){
+		System.out.println('a');
 		return false;
 	    }
-	    if ((r+i < s) && (board[r+1][c+i] >= 1 || board[r+1][c+1] == -1){
+	    if ((r+1 < s) && (board[r+1][c+1] == -1)){
+		System.out.println('b');
 		return false;
 	    }
-	    board[r][c] +=1;
+	    if (board[r+1][c+1] == -1){
+		System.out.println('c');
+		return false;
+	    }
 
-    }
+	}
+
 	printArray();
+	System.out.println('d');
+	//System.exit(0);
+	return true;
+	//
 	    
     }
 
+
     private void removeThreats(int r, int c){
+	//need to have a calculate threats method board[r][c] = ;
 	
-	for (int i = 1; (i < s-1) && (c+i < s); i++){
+	for (int i = 0; (i < s-1) && (c+i < s-1) && (r+i < s-1); i++){
 	    if (r-i > 0){
 		board[r-i][c+i] += 1;
 	    }
 	    if (r+i < s){
 		board[r+i][c+i] += 1;
 	    }
-	    board[r][c] +=1;
+	    board[r][c+i] +=1;
 
-    }
+	}
 	printArray();
 	/*Inefficient Code
 
-	int a = r;
-	int b = c;
-	int d = r;
-	int e = c;
-	//change threst of right horizontal
-	for (int n = 0 ; n < c; n++){
-	    //System.out.println("hello");
-	    if (board[r][n] > 0){
-	        board[r][n] = board[r][n] - 1;
-	    }
-	}
+	  int a = r;
+	  int b = c;
+	  int d = r;
+	  int e = c;
+	  //change threst of right horizontal
+	  for (int n = 0 ; n < c; n++){
+	  //System.out.println("hello");
+	  if (board[r][n] > 0){
+	  board[r][n] = board[r][n] - 1;
+	  }
+	  }
 	
-	//change threat status of upper right diagonal
-	for (; a >= 0 && b < s; a--, b++){
-	    //System.out.println("hi");
-	    if (board[a][b] > 0){
-	        board[a][b] = board[a][b] - 1;
-		//****	System.out.println("" + r + "," + c);
-	    }}
+	  //change threat status of upper right diagonal
+	  for (; a >= 0 && b < s; a--, b++){
+	  //System.out.println("hi");
+	  if (board[a][b] > 0){
+	  board[a][b] = board[a][b] - 1;
+	  //****	System.out.println("" + r + "," + c);
+	  }}
 	
-	//change threat staus of lower right diagonal
-	for (; d < s-1 && e < s; d++, e++){
-	    System.out.println("" + d + "," + e);
-	    if (board[d][e] > 0){
-	        board[d][e] = board[d][e] - 1;
-	    }}
-	//System.out.println("die");
-	*/
+	  //change threat staus of lower right diagonal
+	  for (; d < s-1 && e < s; d++, e++){
+	  System.out.println("" + d + "," + e);
+	  if (board[d][e] > 0){
+	  board[d][e] = board[d][e] - 1;
+	  }}
+	  //System.out.println("die");
+	  */
 	
     }
 
     private void addThreats(int r, int c){
 
-	//System.out.println("die");
+	System.out.println("die");
 	//more optimized version in progress
-	for (int i = 1; (i < s-1) && (c+i < s) && (r+i < s); i++){
+	System.out.println(this);
+	//I accidentally used s-1
+	board[r][c] = -1;
+	for (int i = 0; (i < s-1) && (c+i < s-1) && (r+i < s-1); i++){
 	    if (r-i > 0){
 		board[r-i][c+i] += 1;
 	    }
 	    if (r+i < s){
 		board[r+i][c+i] += 1;
 	    }
-	    board[r][c] +=1;
+	    //I accidentally used c instead of c+i
+	    board[r][c+i] +=1;
 
-    }
+	}
+	System.out.println(this);
 	printArray();
-		}
+    }
 
     
     
@@ -165,11 +185,11 @@ public class QueenBoard{
 	int col = 0;
 	//	try{
 	//	    for (;col < s-1; col++){
-		    return solveH(0);
+	return solveH(0);
 	//	    solveH(col+1);}}
-		}
+    }
     //		catch (ArrayIndexOutOfBoundsException e){
-	    //	    blank = true;
+    //	    blank = true;
     //	    printArray();
     //	    return false;
         
@@ -182,18 +202,20 @@ public class QueenBoard{
 
 	//	for (int c = col; c < s; col ++){
 	for (int i = 0; i < s-1; i++){//loops through rows in this column
- System.out.println("" + i + "," + col );
+	    System.out.println("" + i + "," + col );
 	    if (Placeable(i, col)){
-	//All Queens Placed
-	if (col == s-1){
-	    return true;
-	}
+		System.out.println("Calling addQueens");
+		//All Queens Placed
+		if (col == s-1){
+		    return true;
+		}
 		addQueen(i,col);
+		//System.exit(0);
 		printArray();
 		solveH(col + 1);//{
 		System.out.println("" + col);
-	    //  return true;
-	    //	}
+		//  return true;
+		//	}
 	        
 
 	    }
@@ -223,13 +245,13 @@ public class QueenBoard{
 		//	System.out.println("" + col);
 		//	try{
 		countH(col + 1);} 
-		    //	}
+	    //	}
 	    //	catch (ArrayIndexOutOfBoundsException e){
-		    //	    System.out.println("" + col);
-		    //	    blank = true;
-		    //	    return false;
-		    //	}
-   	        removeQueen(i, col);
+	    //	    System.out.println("" + col);
+	    //	    blank = true;
+	    //	    return false;
+	    //	}
+	    removeQueen(i, col);
 	    
 	}
 	return false;
@@ -273,12 +295,12 @@ public class QueenBoard{
 
 
     public String toString(){
-	    
 	toReturn = new char[s][s];
 	//converting int[][] to char[][]
 	for (int i = 0; i < s; i++){
 	    for (int j = 0; j < s; j++){
 		if (board[i][j] == -1){
+		    System.out.println("inside Q");
 		    toReturn[i][j] = 'Q';}
 		else {
 		    toReturn[i][j] = '_';}
