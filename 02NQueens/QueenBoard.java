@@ -20,22 +20,61 @@ public class QueenBoard{
     //----------------Adding/Removing Queens---------------
 
     private void addQueen(int r, int c){
-	//System.out.println(r);
-	//System.out.println(c);
-	//System.out.println(temp.length);
-	//System.out.println(temp[0].length);
-	System.out.println("Running addQueens");
-	System.out.println("" + r + "," + c);
-	//System.out.println("" + temp[r][c]);
-	addThreats(r,c);
-	//printArray();
+	board[r][c] = -1;
 	
+
+	for (int i = 0; (c+i < s) && (r+i < s); i++){
+	    if ((r-i > 0) && !(board[r-i][c+i] == 1)){
+		board[r-i][c+i] += 1;
+	    }
+	    if ((r+i < s) && !(board[r+i][c+i] == 1)){
+		board[r+i][c+i] += 1;
+	    }
+	    if (board[r][c+i] == 1){
+	    board[r][c+i] +=1;
+	    System.out.println("" + board[r][c+i]);
+	    }
+
+	}
+	System.out.println(this);
+	printArray();
+
     }
 
     private void removeQueen(int r, int c){
-	removeThreats(r,c);
-	//printArray();
+	board[r][c] = calculateThreats();
+	
+for (int i = 0; (c+i < s) && (r+i < s); i++){
+	    if ((r-i > 0) && !(board[r-i][c+i] == 1)){
+		board[r-i][c+i] -= 1;
+	    }
+	    if ((r+i < s) && !(board[r+i][c+i] == 1)){
+		board[r+i][c+i] -= 1;
+	    }
+	    if (!board[r][c+i] == 1){
+	    board[r][c+i] -=1;
+	    }
+
+	}
+	printArray();
+	
     }
+    //MISTAKE AREA
+    public int calculateThreats(){
+	int result = 0;
+for (int i = 0; (c+i < s) && (r+i < s); i++){
+	    if ((r-i > 0) && !(board[r-i][c+i] == 1)){
+	        result++;
+	    }
+	    if ((r+i < s) && !(board[r+i][c+i] == 1)){
+	        result++;
+	    }
+	    if (!board[r][c+i] == 1){
+		result++;
+	    }
+	    return result;
+
+	}
 
 
     //----------------ExtrasHelpful---------------------------
@@ -75,14 +114,14 @@ public class QueenBoard{
 	System.out.println(this);
 	System.out.println(r);
 	System.out.println(c);
-	//OMG, I was checking for colmns without threat so that's why my code wasn't working
-	for (int i = 1; (i < s-1) && (c+i < s); i++){
-
-	    if ((r-i > 0) && (board[r-1][c+i] == -1)){
+	/* I made a very big mistake by looking for safe columns, rows, and diagonals
+	for (int i = 1; c+i < s; i++){
+	    
+	    if ((r-i > 0) || (board[r-1][c+i] == -1) || (board[r-i][c+i] > 0){
 		System.out.println('a');
 		return false;
 	    }
-	    if ((r+1 < s) && (board[r+1][c+1] == -1)){
+	    if ((r+1 < s-1) || (board[r+1][c+1] == -1)){
 		System.out.println('b');
 		return false;
 	    }
@@ -90,29 +129,25 @@ public class QueenBoard{
 		System.out.println('c');
 		return false;
 	    }
-
-	}
-
-	printArray();
-	System.out.println('d');
-	//System.exit(0);
-	return true;
-	//
+	*/
+	return (board[r][c] == -1 || board[r][c] > 0);
 	    
     }
 
-
+    /* Old Functions, Repetitive
     private void removeThreats(int r, int c){
 	//need to have a calculate threats method board[r][c] = ;
 	
-	for (int i = 0; (i < s-1) && (c+i < s-1) && (r+i < s-1); i++){
-	    if (r-i > 0){
-		board[r-i][c+i] += 1;
+	for (int i = 0; (c+i < s) && (r+i < s); i++){
+	    if ((r-i > 0) && (board[r-i][c+i] >= 0)){
+		board[r-i][c+i] -= 1;
 	    }
-	    if (r+i < s){
-		board[r+i][c+i] += 1;
+	    if ((r+i < s) && (board[r+i][c+i] >= 0)){
+		board[r+i][c+i] -= 1;
 	    }
-	    board[r][c+i] +=1;
+	    if (board[r][c+i] >= 0){
+	    board[r][c+i] -=1;
+	    }
 
 	}
 	printArray();
@@ -145,7 +180,7 @@ public class QueenBoard{
 	  board[d][e] = board[d][e] - 1;
 	  }}
 	  //System.out.println("die");
-	  */
+	  
 	
     }
 
@@ -156,20 +191,23 @@ public class QueenBoard{
 	System.out.println(this);
 	//I accidentally used s-1
 	board[r][c] = -1;
-	for (int i = 0; (i < s-1) && (c+i < s-1) && (r+i < s-1); i++){
-	    if (r-i > 0){
+	for (int i = 0; (c+i < s) && (r+i < s); i++){
+	    if ((r-i > 0) && (board[r-i][c+i] >= 0)){
 		board[r-i][c+i] += 1;
 	    }
-	    if (r+i < s){
+	    if ((r+i < s) && (board[r+i][c+i] >= 0)){
 		board[r+i][c+i] += 1;
 	    }
+	    if (board[r][c+i] >= 0){
 	    //I accidentally used c instead of c+i
 	    board[r][c+i] +=1;
+	    }
 
 	}
 	System.out.println(this);
 	printArray();
     }
+    */
 
     
     
