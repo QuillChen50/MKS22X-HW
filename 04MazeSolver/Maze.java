@@ -134,12 +134,12 @@ public class Maze{
             wait(20);
         }
 
-	if (x ==  && y == ) return true; // If you reached the end
-	if (maze[x][y] == 2 || wasHere[x][y]) return false;  
+	if (x == ex  && y == ey ){ return true;} // If you reached the end
+	if (maze[x][y] == 2 || wasHere[x][y]) {return false;}  
 	// If you are on a wall or already were here
 	wasHere[x][y] = true;
 	
-	if(validMove(x, y))
+	if(validMove(x, y)){
 	    if(atEnd(x, y)) {
 		// Mark the exit
 		maze[y][x] = 'E';
@@ -157,11 +157,7 @@ public class Maze{
 		    return true;
 		}
 	    }
-        return false;
-    }
-
-
-	
+	}
 
     //COMPLETE SOLVE
     return false; //so it compiles
@@ -172,7 +168,7 @@ public  boolean validMove(int x, int y) {
     if(y < 0 || x < 0 || y >= maze.length || x >= maze[y].length)
         return false;
     // In a wall or where we have been?
-    if(maze[y][x] is 'X' || maze[y][x] is 'V')
+    if(maze[y][x] == 'X' || maze[y][x] == 'V')
         return false;
 
     return true;
