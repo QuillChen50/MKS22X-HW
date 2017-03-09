@@ -16,7 +16,7 @@ public class QueenBoard{
     public int getSize(){
         return s;
     }
-
+    //Problem AREA should be here b/c Queens don't seem to be added (there's no -1
     //----------------Adding/Removing Queens---------------
 
     private void addQueen(int r, int c){
@@ -26,41 +26,46 @@ public class QueenBoard{
 	for (int i = 0; (c+i < s) && (r+i < s); i++){
 	    if ((r-i > 0) && !(board[r-i][c+i] == 1)){
 		board[r-i][c+i] += 1;
+		System.out.println("Results of Adding Threats" + board[r-i][c+i]);
 	    }
 	    if ((r+i < s) && !(board[r+i][c+i] == 1)){
 		board[r+i][c+i] += 1;
+		System.out.println("Results of Adding Threats" + board[r+i][c+i]);
 	    }
 	    if (board[r][c+i] == 1){
 	    board[r][c+i] +=1;
-	    System.out.println("" + board[r][c+i]);
+	    System.out.println("Results of Adding Threats" + board[r][c+i]);
 	    }
 
 	}
-	System.out.println(this);
+	//System.out.println(this);
 	printArray();
 
     }
 
     private void removeQueen(int r, int c){
-	board[r][c] = calculateThreats();
+	board[r][c] = 0;
 	
 for (int i = 0; (c+i < s) && (r+i < s); i++){
-	    if ((r-i > 0) && !(board[r-i][c+i] == 1)){
-		board[r-i][c+i] -= 1;
+    if ((r-i > 0) && !(board[r-i][c+i] == -1) && (board[r-i][c+i] != 0)){
+		board[r-i][c+i] = board[r-i][c+i]- 1;
+		System.out.println("Result of Removing Threats" + board[r-i][c+i]);
 	    }
-	    if ((r+i < s) && !(board[r+i][c+i] == 1)){
-		board[r+i][c+i] -= 1;
+	    if ((r+i < s) && !(board[r+i][c+i] == -1)  && (board[r+i][c+i] != 0)){
+		board[r+i][c+i] = board[r+i][c+i] - 1;
+		System.out.println("Result of Removing Threats" + board[r+i][c+i]);
 	    }
-	    if (!board[r][c+i] == 1){
-	    board[r][c+i] -=1;
+	    if ((board[r][c+i] != -1)  && (board[r][c+i] != 0)){
+	    board[r][c+i] =  board[r][c+i] - 1;
+	    System.out.println("Result of Removing Threats" + board[r][c+i]);
 	    }
 
 	}
-	printArray();
+//printArray();
 	
     }
-    //MISTAKE AREA
-    public int calculateThreats(){
+    /*Not necessary
+    public int calculateThreats(int r, int c){
 	int result = 0;
 for (int i = 0; (c+i < s) && (r+i < s); i++){
 	    if ((r-i > 0) && !(board[r-i][c+i] == 1)){
@@ -72,9 +77,12 @@ for (int i = 0; (c+i < s) && (r+i < s); i++){
 	    if (!board[r][c+i] == 1){
 		result++;
 	    }
+}
 	    return result;
 
-	}
+	
+    }
+    */
 
 
     //----------------ExtrasHelpful---------------------------
@@ -130,7 +138,7 @@ for (int i = 0; (c+i < s) && (r+i < s); i++){
 		return false;
 	    }
 	*/
-	return (board[r][c] == -1 || board[r][c] > 0);
+	return (board[r][c] == 0);
 	    
     }
 
