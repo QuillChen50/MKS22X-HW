@@ -16,65 +16,63 @@ public class QueenBoard{
     public int getSize(){
         return s;
     }
-    //Problem AREA should be here b/c Queens don't seem to be added (there's no -1
+
     //----------------Adding/Removing Queens---------------
 
     private void addQueen(int r, int c){
 	board[r][c] = -1;
 	
 
-	for (int i = 0; (c+i < s) && (r+i < s); i++){
-	    if ((r-i > 0) && !(board[r-i][c+i] == 1)){
+	for (int i = 1; (c+i < s) ; i++){
+	    if (r-i >= 0) {
 		board[r-i][c+i] += 1;
-		System.out.println("Results of Adding Threats" + board[r-i][c+i]);
 	    }
-	    if ((r+i < s) && !(board[r+i][c+i] == 1)){
+	    if (r+i < s){
 		board[r+i][c+i] += 1;
-		System.out.println("Results of Adding Threats" + board[r+i][c+i]);
 	    }
-	    if (board[r][c+i] == 1){
+	    
 	    board[r][c+i] +=1;
-	    System.out.println("Results of Adding Threats" + board[r][c+i]);
-	    }
+	    //System.out.println("" + board[r][c+i]);
+	    
 
 	}
 	//System.out.println(this);
-	printArray();
+	//printArray();
 
     }
 
     private void removeQueen(int r, int c){
 	board[r][c] = 0;
 	
-for (int i = 0; (c+i < s) && (r+i < s); i++){
-    if ((r-i > 0) && !(board[r-i][c+i] == -1) && (board[r-i][c+i] != 0)){
-		board[r-i][c+i] = board[r-i][c+i]- 1;
-		System.out.println("Result of Removing Threats" + board[r-i][c+i]);
+	for (int i = 1; (c+i < s) ; i++){
+	    if (r-i >= 0) {
+		board[r-i][c+i] -= 1;
 	    }
-	    if ((r+i < s) && !(board[r+i][c+i] == -1)  && (board[r+i][c+i] != 0)){
-		board[r+i][c+i] = board[r+i][c+i] - 1;
-		System.out.println("Result of Removing Threats" + board[r+i][c+i]);
+	    if (r+i < s){
+		board[r+i][c+i] -= 1;
 	    }
-	    if ((board[r][c+i] != -1)  && (board[r][c+i] != 0)){
-	    board[r][c+i] =  board[r][c+i] - 1;
-	    System.out.println("Result of Removing Threats" + board[r][c+i]);
-	    }
+	    
+	    board[r][c+i] -= 1;
+	    //System.out.println("" + board[r][c+i]);
+	    
 
 	}
-//printArray();
+	//System.out.println(this);
+	//printArray();
+
 	
     }
-    /*Not necessary
+    /*
     public int calculateThreats(int r, int c){
 	int result = 0;
-for (int i = 0; (c+i < s) && (r+i < s); i++){
-	    if ((r-i > 0) && !(board[r-i][c+i] == 1)){
+for (int i = 1; (c+i < s); i++){
+	    if ((r-i > 0) && !(board[r-i][c+i] == -1)){
 	        result++;
 	    }
-	    if ((r+i < s) && !(board[r+i][c+i] == 1)){
+	    if ((r+i < s) && !(board[r+i][c+i] == -1)){
 	        result++;
 	    }
-	    if (!board[r][c+i] == 1){
+	    if (board[r][c+i] != -1){
 		result++;
 	    }
 }
@@ -87,6 +85,8 @@ for (int i = 0; (c+i < s) && (r+i < s); i++){
 
     //----------------ExtrasHelpful---------------------------
     private boolean Placeable(int r, int c){
+	if ((r >= s) || (c >=s)){
+	    return false;}
 	/*
 	//only need to check left side and left diagonals (upper and lower)
 	int a = r;
@@ -119,9 +119,9 @@ for (int i = 0; (c+i < s) && (r+i < s); i++){
 	return true;
 	*/
 
-	System.out.println(this);
-	System.out.println(r);
-	System.out.println(c);
+	//System.out.println(this);
+	//System.out.println(r);
+	//System.out.println(c);
 	/* I made a very big mistake by looking for safe columns, rows, and diagonals
 	for (int i = 1; c+i < s; i++){
 	    
@@ -245,29 +245,34 @@ for (int i = 0; (c+i < s) && (r+i < s); i++){
     
 
     private boolean solveH(int col){
+	if (s == col){
+	    return true;}
 
 	//	for (int c = col; c < s; col ++){
-	for (int i = 0; i < s-1; i++){//loops through rows in this column
-	    System.out.println("" + i + "," + col );
+	for (int i = 0; i < s; i++){//loops through rows in this column
+	    //System.out.println("" + i + "," + col );
 	    if (Placeable(i, col)){
-		System.out.println("Calling addQueens");
+		//System.out.println("Calling addQueens");
 		//All Queens Placed
-		if (col == s-1){
-		    return true;
-		}
+	        //printArray();
+    
 		addQueen(i,col);
 		//System.exit(0);
-		printArray();
-		solveH(col + 1);//{
-		System.out.println("" + col);
+		//System.out.println(this);
+		//printArray();
+		if (solveH(col + 1)){
+		    return true;}//{
+		//System.out.println("" + col);
 		//  return true;
 		//	}
 	        
 
-	    }
+	    
 	    //solveH(col);
 	    removeQueen(i,col);
-	    printArray();
+	    }
+            //System.out.println(this);
+	    //printArray();
 	    
 	    //	    removeQueen(i, col);
 	}		    
@@ -277,20 +282,24 @@ for (int i = 0; (c+i < s) && (r+i < s); i++){
     
 
     //------------SolutionCounting and Returning-----------------------
+    public void countSolutions(){
 
+	countH(0);
+    }
 
 
     public boolean countH(int col){
 	//all Queens Placed
-	if (col == s-1){
-	    solutionCount++;
+	if (col == s){
+	    return true;
 	}
 	for (int i = 0; i < s; i++){//loops through rows in this column
 	    if (Placeable(i, col)){
 		addQueen(i,col);
+
+		solutionCount++;
 		//	System.out.println("" + col);
 		//	try{
-		countH(col + 1);} 
 	    //	}
 	    //	catch (ArrayIndexOutOfBoundsException e){
 	    //	    System.out.println("" + col);
@@ -299,12 +308,15 @@ for (int i = 0; (c+i < s) && (r+i < s); i++){
 	    //	}
 	    removeQueen(i, col);
 	    
+	    }
 	}
 	return false;
+	
     }
 
     public int getSolutionCount(){
 
+	/*
 	if (s == 2 || s == 3){
 	    return 0;}
 	else if (s == 1){
@@ -314,9 +326,12 @@ for (int i = 0; (c+i < s) && (r+i < s); i++){
 	else {
 	    return -1;
 	}
+	*/
+	int x = solutionCount;
+	return x;
 	     
     }
-
+    /*
     public String blankBoard(){
 	toReturn = new char[s][s];
 	for (int i = 0; i < s; i++){
@@ -327,26 +342,15 @@ for (int i = 0; (c+i < s) && (r+i < s); i++){
 	}
 	return sReturn;
     }
+    */
     
-    public void countSolutions(){
-	solutionCount = 0;
-	int col = 0;
-	for (;col < s; col++){
-	    countH(col);
-	}
-   
-	    
-    }
- 
-
-
     public String toString(){
 	toReturn = new char[s][s];
 	//converting int[][] to char[][]
 	for (int i = 0; i < s; i++){
 	    for (int j = 0; j < s; j++){
 		if (board[i][j] == -1){
-		    System.out.println("inside Q");
+		    //System.out.println("inside Q");
 		    toReturn[i][j] = 'Q';}
 		else {
 		    toReturn[i][j] = '_';}
@@ -385,13 +389,17 @@ for (int i = 0; (c+i < s) && (r+i < s); i++){
 	
     
     public static void main (String [] args){
-	QueenBoard x = new QueenBoard(8);
+	QueenBoard x = new QueenBoard(4);
 	//System.out.println(x);
-	x.solve();
+	//x.solve();
+	//System.out.println(x.Placeable(0,1));
+	//x.addQueen(6,3);
+	//x.removeQueen(1,1);
 	//	x.printArray();
-	System.out.println(x);
-	//	x.countSolutions();
-	//	System.out.println(x.getSolutionCount());
+	//System.out.println(x);
+
+	x.countSolutions();
+        System.out.println(x.getSolutionCount());
     }
     
 
