@@ -4,8 +4,6 @@ public class USACO{
     private int[][]bronzePasture;
     private char[][]silverPasture;
     private int finalElevation;
-    private int time;
-    private int smallest;
     private int rows;
     private int cols;
     private int blocks;
@@ -82,7 +80,7 @@ public class USACO{
 		//}
 	    }
 	}
-	printArray();
+	printArray(bronzePasture);
 	
     }
 
@@ -117,25 +115,34 @@ public class USACO{
     public void silver(String filename){
 	try {
 	    Scanner sca = new Scanner(new File(filename));
-	    String[] info = sca.nextLine().split("\\s");
-	    int rows = Integer.parseInt(info[0]);
-	    int cols = Integer.parseInt(info[1]);
-	    System.out.println(sca.next());
-	    System.out.println(sca.next());
-	    System.out.println(sca.next());
-	    silverPasture = new char[rows][cols];
-	    time = Integer.parseInt(info[2]);
+	    int N = Integer.parseInt(sc.next());
+	    int M = Integer.parseInt(sc.next());
+	    int time = Integer.parseInt(sc.next());
+
+	    silverPasture = new char[N][M];
+	    String line = "";
+	    char[] temp = new char[N];
+	    for (int i = 0; i < N; i++){
+	    line = sca.next();
+	    temp = line.toCharArray();
+	    for (int j = 0; j < M; j++){
+		silverPasture[i][j] = temp[j];
+    }
+	    }
+
+
 	    System.out.println(sca.nextLine());
 	    System.out.println(time);
-
-	    for (int r = 0; r < rows; r++) {
+	    /*
+	    for (int r = 0; r < N; r++) {
 		String[] line = sca.nextLine().split("\\s");
 		System.out.println(line);
-		for (int c = 0; c < cols ; c++) {
+		for (int c = 0; c < M ; c++) {
 		    silverPasture[r][c] = line[c].charAt(0);
 		}
 	    }
 	    System.out.println(Arrays.deepToString(silverPasture));
+	    */
 
 	}
 	
@@ -146,13 +153,13 @@ public class USACO{
      
     }
 
-    public void printArray(){
+    public void printArray(int[][] ary){
 
 	for(int r = 0; r< rows; r++)
 	    {
 		for(int c = 0; c< cols; c++)
 		    {
-			System.out.print(bronzePasture[r][c] + " ");
+			System.out.print(ary[r][c] + " ");
 		    }
 		System.out.println();
 	    }
@@ -162,7 +169,7 @@ public class USACO{
 
     public static void main(String[]args){
 	USACO x = new USACO();
-	x.bronze("BronzeTest1.txt");
-	//x.silver("SilverTest.txt");
+	//x.bronze("BronzeTest2.txt");
+	x.silver("SilverTest.txt");
     }
 }
