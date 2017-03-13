@@ -8,6 +8,7 @@ public class USACO{
     private int smallest;
     private int rows;
     private int cols;
+    private int blocks;
     
     public void bronze(String filename){
 	try {
@@ -34,6 +35,9 @@ public class USACO{
 	    //System.out.println(sc.next());
 	    //System.out.println(finalElevation);
 	    //System.out.println(Arrays.deepToString(bronzePasture));
+	    //int volume = blocks*72*72;
+	    //System.out.println(volume);
+	    System.out.println(calVol()*72*72);
 	}
 	catch(FileNotFoundException e){
 	    System.out.println("File not found");
@@ -55,48 +59,58 @@ public class USACO{
 	    
 
 	  
-	int m = 0;
 	
-	for (int s = depth; s > 0; s--){
-	    /*System.out.println(bronzePasture[row-1][column-1] + "\n" +
-			       bronzePasture[row-1][column] + "\n" +
-			       bronzePasture[row-1][column+1]);
-	    */
+	//for (int s = depth; s > 0; s--){
+	/*System.out.println(bronzePasture[row-1][column-1] + "\n" +
+	  bronzePasture[row-1][column] + "\n" +
+	  bronzePasture[row-1][column+1]);
+	*/int m = getMaxValue(row,column) - depth;
 	    
-	    for (int i = 0; i < 3 
-		     /* && ((row-1+i) < bronzePasture[0].length)
-		       && ((column-1+i) < bronzePasture.length) */; i++){
-		m = getMaxValue(row,column);
-		for (int j = 0; j < 3; j++){
+	for (int i = 0; i < 3 
+		 /* && ((row-1+i) < bronzePasture[0].length)
+		    && ((column-1+i) < bronzePasture.length) */; i++){
+	    //int m = getMaxValue(row,column) - depth;
+
+	    for (int j = 0; j < 3; j++){
         
-		if (bronzePasture[row-1+i][column-1+j] == m){
-		    bronzePasture[row-1+i][column-1+j] = bronzePasture[row-1+i][column-1+j] - s;
+		if (bronzePasture[row-1+i][column-1+j] > m){
+		    //blocks = blocks + (bronzePasture[row-1+i][column-1+j]
+					   
+		    bronzePasture[row-1+i][column-1+j] = m;
 		}
-        System.out.println(m);
-		}
-	    printArray();
+		//System.out.println(m);
+		//}
 	    }
 	}
-	  
-	    
-	
+	printArray();
 	
     }
 
     public int getMaxValue(int row,int col){
-    int maxValue = bronzePasture[row-1][col-1];
-  for (int i = 0; i < 3 
-		     /* && ((row-1+i) < bronzePasture[0].length)
-		       && ((column-1+i) < bronzePasture.length) */; i++){
-		for (int j = 0; j < 3; j++){
-		    if(bronzePasture[row-1+i][col-1+j] > maxValue){
-	  maxValue = bronzePasture[row-1+i][col-1+j];
+	int maxValue = bronzePasture[row-1][col-1];
+	for (int i = 0; i < 3 
+		 /* && ((row-1+i) < bronzePasture[0].length)
+		    && ((column-1+i) < bronzePasture.length) */; i++){
+	    for (int j = 0; j < 3; j++){
+		if(bronzePasture[row-1+i][col-1+j] > maxValue){
+		    maxValue = bronzePasture[row-1+i][col-1+j];
+		}
+	    }
 	}
-  }
-  }
-  return maxValue;
-}
+	return maxValue;
+    }
   
+    public int calVol(){
+	int volume = 0;
+	for (int r = 0; r<rows; r++){
+	    for(int c = 0; c<cols;c++) {
+		if (
+		    bronzePasture[r][c] < finalElevation){
+		    volume += finalElevation - bronzePasture[r][c];}
+	    }
+	}
+	return volume;
+    }
 	
     //still trying to work out USACO silver
     //still trying to get silver's scanner to work  
@@ -134,15 +148,15 @@ public class USACO{
 
     public void printArray(){
 
-for(int r = 0; r< rows; r++)
-{
-    for(int c = 0; c< cols; c++)
-    {
-        System.out.print(bronzePasture[r][c] + " ");
-    }
-    System.out.println();
-}
-System.out.println();
+	for(int r = 0; r< rows; r++)
+	    {
+		for(int c = 0; c< cols; c++)
+		    {
+			System.out.print(bronzePasture[r][c] + " ");
+		    }
+		System.out.println();
+	    }
+	System.out.println();
     }
     
 
