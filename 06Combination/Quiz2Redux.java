@@ -9,48 +9,67 @@ public class Quiz2Redux{
 	String result = s;
 	ArrayList<String>words = new ArrayList<String>();
 	words.add("");
-	help( words , result);
+	help( words , "", result);
 	Collections.sort(words);
 	return words;
     }
   
-    private static void help( ArrayList<String> words,String in){
+    private static void help( ArrayList<String> words,String out, String in){
 	/*	if (in.length() == 1){
 		words.add(in);
 		return;}
 	*/
+	//base case
 	if (in.length() == 0){
+	    words.add(""+ out);
 	    return;}
-	String out = "" + in.charAt(0);
-	words.add(out);
-	for (int j = 1; j < in.length(); j++){
-	    /*System.out.println("added");
-	      for (String str : words){
-	      System.out.println( str);}
-	    */
-	    System.out.println(j);
-	    out = out + in.charAt(j);
-	    words.add(out);
+	//	if (in.length() == 0){
+	//   return;}
 
-	    help(words, in.substring(1));
-	    for (int i = j; i < 0; i++){
-	    removeCharAt(out, out.length() - 1);
-	    }
-	}
-	    
-	for (String str : words){
-	    System.out.println( str);}
+	        if (in.length() > 0) {
+		    
+		    //words.add(out + in.charAt(0)); //this added the middle of the tree
+		    //System.out.println("current partial added: ");
+		    //for (String str : words){
+		    //System.out.println(str);}
+		
+		    help(words, out + in.charAt(0), in.substring(1));
+		}
+		    //removeCharAt(out,out.length()-1); 
+		    help(words, out,in.substring(1));
+        }
     
-}
 
+    /*
+	for (int j = 0; j < in.length() ; j++){
+	    
+	    out = out + in.charAt(j);
+	    
+	    //Looking at Each element added
+	    //System.out.println(out);
+	    
+	    words.add(out);
+	    System.out.println(out);
+	    //for (String str : words){
+	    //System.out.println(str);}
+	    help(words, in.substring(1), out + );//if add
+	
+	    //removeCharAt(out, out.length() -1);
+	    //System.out.println(in.substring(1));
+	help(words, in.substring(1), out); //if not add
+	
+	}
+    */
+	    
+    /*
 public static String removeCharAt(String s, int index) {
     return s.substring(0, index) + s.substring(index + 1);
 }
+    */
 
 	
-			      
-			   
-/*
+    /*			      
+			  
   for (int i = 0; i < result.length(); i++) {
   // Record size as the list will change
   int ArrayLength = words.size();
@@ -65,5 +84,7 @@ public static String removeCharAt(String s, int index) {
 
 public static void main (String[] args){
     System.out.println(combinations("abc"));
+    System.out.println(combinations("abcdef"));
+    System.out.println(combinations("a"));
 }
 }
