@@ -110,19 +110,29 @@ public class USACO{
 	    int N = Integer.parseInt(sca.next());
 	    int M = Integer.parseInt(sca.next());
 	    int time = sca.nextInt();
-	    sca.nextLine();
+	    System.out.println(sca.nextLine());
 	    //System.out.println(N + "x" + M + " : " + time);
 
 
 	    silverPasture = new char[N][M];
+
 	    //printArrayS(silverPasture);
 	    for (int i = 0; i < N; i++){
-		silverPasture[i] = sca.nextLine().toCharArray();
+	    char[] ary = sca.nextLine().toCharArray();
+	    // for (char c: ary){
+	    // System.out.println(c+"");}
+		for (int j = 0; j < M; j++){
+		    // System.out.println(ary[j]);
+		silverPasture[i][j] = ary[j] ;//sca.nextLine().toCharArray();
+		System.out.print(silverPasture[i][j]);
 		printArrayS(silverPasture);
 	    
 	    }
+	    }
 	    //printArrayS(silverPasture);
 	}
+	sca.nextLine();
+	
 
 	    /*
 	    System.out.println(sca.nextLine());
@@ -163,9 +173,9 @@ public class USACO{
 
     public void printArrayS(char[][] ary){
 
-	for(int r = 0; r< rows; r++)
+	for(int r = 0; r< ary.length; r++)
 	    {
-		for(int c = 0; c< cols; c++)
+		for(int c = 0; c< ary[0].length; c++)
 		    {
 			System.out.print(ary[r][c] + " ");
 		    }
