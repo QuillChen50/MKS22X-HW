@@ -1,13 +1,15 @@
 import java.io.*;
 import java.util.*;
 public class USACO{
-    private int[][]bronzePasture;
     private char[][]silverPasture;
-    private int finalElevation;
+
+    
+    //private int[][]bronzePasture;
+    //private int finalElevation;
     private int rows;
     private int cols;
-    private int blocks;
-    
+    // private int blocks;
+    /*
     public void bronze(String filename){
 	try {
 	    Scanner sc = new Scanner(new File(filename));
@@ -44,29 +46,17 @@ public class USACO{
 
     }
     private void cowStomping(int row, int column, int depth){
-	/*
-	  System.out.print(row + ", ");
-	  System.out.print(column + ", ");
-	  System.out.print(depth + "\n");
-	  
-	  bronzePasture[row-1][column-1] = a;
-	  bronzePasture[row][column] = b;
-	  bronzePasture[row+1][column+1] = c;
-	*/
-	    
-	    
 
-	  
-	
 	//for (int s = depth; s > 0; s--){
-	/*System.out.println(bronzePasture[row-1][column-1] + "\n" +
-	  bronzePasture[row-1][column] + "\n" +
-	  bronzePasture[row-1][column+1]);
-	*/int m = getMaxValue(row,column) - depth;
+	//System.out.println(bronzePasture[row-1][column-1] + "\n" +
+	 // bronzePasture[row-1][column] + "\n" +
+	 // bronzePasture[row-1][column+1]);
+	int m = getMaxValue(row,column) - depth;
 	    
 	for (int i = 0; i < 3 
-		 /* && ((row-1+i) < bronzePasture[0].length)
-		    && ((column-1+i) < bronzePasture.length) */; i++){
+		 // && ((row-1+i) < bronzePasture[0].length)
+		 //  && ((column-1+i) < bronzePasture.length) 
+; i++){
 	    //int m = getMaxValue(row,column) - depth;
 
 	    for (int j = 0; j < 3; j++){
@@ -87,8 +77,9 @@ public class USACO{
     public int getMaxValue(int row,int col){
 	int maxValue = bronzePasture[row-1][col-1];
 	for (int i = 0; i < 3 
-		 /* && ((row-1+i) < bronzePasture[0].length)
-		    && ((column-1+i) < bronzePasture.length) */; i++){
+		 //&& ((row-1+i) < bronzePasture[0].length)
+		 // && ((column-1+i) < bronzePasture.length)
+ ; i++){
 	    for (int j = 0; j < 3; j++){
 		if(bronzePasture[row-1+i][col-1+j] > maxValue){
 		    maxValue = bronzePasture[row-1+i][col-1+j];
@@ -109,31 +100,34 @@ public class USACO{
 	}
 	return volume;
     }
+    */
 	
     //still trying to work out USACO silver
     //still trying to get silver's scanner to work  
     public void silver(String filename){
 	try {
 	    Scanner sca = new Scanner(new File(filename));
-	    int N = Integer.parseInt(sc.next());
-	    int M = Integer.parseInt(sc.next());
-	    int time = Integer.parseInt(sc.next());
+	    int N = Integer.parseInt(sca.next());
+	    int M = Integer.parseInt(sca.next());
+	    int time = sca.nextInt();
+	    sca.nextLine();
+	    //System.out.println(N + "x" + M + " : " + time);
+
 
 	    silverPasture = new char[N][M];
-	    String line = "";
-	    char[] temp = new char[N];
+	    //printArrayS(silverPasture);
 	    for (int i = 0; i < N; i++){
-	    line = sca.next();
-	    temp = line.toCharArray();
-	    for (int j = 0; j < M; j++){
-		silverPasture[i][j] = temp[j];
-    }
+		silverPasture[i] = sca.nextLine().toCharArray();
+		printArrayS(silverPasture);
+	    
 	    }
+	    //printArrayS(silverPasture);
+	}
 
-
+	    /*
 	    System.out.println(sca.nextLine());
 	    System.out.println(time);
-	    /*
+	    
 	    for (int r = 0; r < N; r++) {
 		String[] line = sca.nextLine().split("\\s");
 		System.out.println(line);
@@ -142,10 +136,10 @@ public class USACO{
 		}
 	    }
 	    System.out.println(Arrays.deepToString(silverPasture));
-	    */
+	    
 
 	}
-	
+	    */
 	catch(FileNotFoundException e){
 	    System.out.println("File not found");
 	    System.exit(0);
@@ -153,7 +147,21 @@ public class USACO{
      
     }
 
+
     public void printArray(int[][] ary){
+
+	for(int r = 0; r< rows; r++)
+	    {
+		for(int c = 0; c< cols; c++)
+		    {
+			System.out.print(ary[r][c] + " ");
+		    }
+		System.out.println();
+	    }
+	System.out.println();
+    }
+
+    public void printArrayS(char[][] ary){
 
 	for(int r = 0; r< rows; r++)
 	    {
@@ -169,7 +177,7 @@ public class USACO{
 
     public static void main(String[]args){
 	USACO x = new USACO();
-	x.bronze("BronzeTest2.txt");
-	//x.silver("SilverTest.txt");
+	//x.bronze("BronzeTest2.txt");
+	x.silver("SilverTest.txt");
     }
 }
