@@ -1,0 +1,23 @@
+public class Quick{
+    
+    private static final Random random = new Random();
+
+    public static int part (int[] data, int start, int end){
+	//generate random index
+	index = random.nextInt(someArray.length);
+	int pivot = data[start];
+	int[] temp = new int[data.length];
+int back = 0
+	for (int i = 0; i < data.length, i++){
+	    if (data[i] <= pivot){
+		temp[i] = data[i];}
+	    else {
+		
+		temp[temp.length - back] = data[i];
+back++
+	    }
+
+	if (data[start]
+	    }
+
+}
