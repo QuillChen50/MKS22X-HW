@@ -2,12 +2,14 @@ import java.io.*;
 import java.util.*;
 public class USACO{
     //for silverPasture
+    /*
     private char[][]silverPasture;
     private static int R1;
     private static int C1;
     private static int R2;
     private static int C2;
     private static int[][][] patterns;
+    */
 
     //for bronzePasture
     private int[][]bronzePasture;
@@ -107,10 +109,13 @@ public class USACO{
       return volume;
       }
     
-	
+    	
     //still trying to work out USACO silver
     //still trying to get silver's scanner to work  
     public void silver(String filename){
+	System.out.println("still working on Silver");
+    }
+	/*
 	try {
 	    Scanner sca = new Scanner(new File(filename));
 	    int N = Integer.parseInt(sca.next());
@@ -161,7 +166,7 @@ public class USACO{
 	    
 
 	  }
-	*/
+	
 	catch(FileNotFoundException e){
 	    System.out.println("File not found");
 	    System.exit(0);
@@ -213,6 +218,7 @@ public class USACO{
 	return silverPasture[rs+rn][cs+cn] == '.';
 	//valid slot (no tree)
     }
+    */
 
 
     public void printArray(int[][] ary){
@@ -227,7 +233,7 @@ public class USACO{
 	    }
 	System.out.println();
     }
-
+    /*
     public void printArrayS(char[][] ary){
 
 	for(int r = 0; r< ary.length; r++)
@@ -240,11 +246,12 @@ public class USACO{
 	    }
 	System.out.println();
     }
+    */
     
 
     public static void main(String[]args){
 	USACO x = new USACO();
-	//x.bronze("BronzeTest2.txt");
-	x.silver("SilverTest.txt");
+	x.bronze("BronzeTest2.txt");
+	//x.silver("SilverTest.txt");
     }
 }
