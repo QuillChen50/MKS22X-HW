@@ -47,13 +47,27 @@ public class Quick{
 	}
     //-----------------------------------------------------
 
-    public static int quickselect(int[] data, int k){
+    public static int quickselect(int[] data, int k, int start, int end){
 	int value = data[k];
-	//part(data, 0, data.length) < k
+	int findex = part(data, start, end);
 
-	return 1;
+	if (findex == k){
+	    return value;
+	}
+	else if (findex > k){
+	    //part(data, findex, end);
+	    System.out.println("" + findex + value);
+	    return quickselect(data, k, findex, end);
 
-		}
+	}
+	    //part(data, 0, findex - 1);
+	System.out.println("" + findex + value);
+	    return quickselect(data, k, start, findex-1);
+	
+	//for (int i = 0; i < data.length; i++){
+	//System.out.print( data[i] + ", ");
+	//}
+    }
 
 	public String printArray(int[] arr){
 
@@ -108,7 +122,7 @@ public class Quick{
 	part(array, 0 , array.length-1);
 	part(a, 0, a.length-1);
 	//quickselect(array, 5);
-
+	quickselect(array, 3, 0, array.length-1);
 
     }
 
