@@ -11,7 +11,7 @@ public class Quick{
 	int length = end - start + 1 ;
 	int bindex = length - 1;
 	int findex = 0;
-
+	System.out.println("length: " + length);
 	int pivot = random.nextInt(length);
 	int value = data[pivot];
 
@@ -35,12 +35,12 @@ public class Quick{
 	for (int i = 0; i < temp.length; i++){
 		result = result + temp[i] + " ";
 	    }
-	for (int j = 0; j < length-1; j++){
-	    data[start] = temp[j];
+	for (int j = 0; j < temp.length; j++){
+	    data[start + j] = temp[j];
 	    }
-	//System.out.println("result: " + result);
-	//System.out.println("pivot: " + pivot);
-	//System.out.println("findex: " + findex);
+	System.out.println("result: " + result);
+	System.out.println("pivot: " + pivot);
+	System.out.println("findex: " + findex);
 	return findex;
 
 
@@ -56,13 +56,13 @@ public class Quick{
 	}
 	else if (findex > k){
 	    //part(data, findex, end);
-	    System.out.println("" + findex + value);
+	    //System.out.println("start: " + findex + ", end: " + value);
 	    return quickselect(data, k, findex, end);
 
 	}
 	    //part(data, 0, findex - 1);
-	System.out.println("" + findex + value);
-	    return quickselect(data, k, start, findex-1);
+	//System.out.println("start: " + findex + ", end: " + value);
+	    return quickselect(data, k, start, findex);
 	
 	//for (int i = 0; i < data.length; i++){
 	//System.out.print( data[i] + ", ");
@@ -119,8 +119,8 @@ public class Quick{
     public static void main (String [] args){
 	int[] array = {6, 10 , 0 , 0 , 1};
 	int [] a = {6};
-	part(array, 0 , array.length-1);
-	part(a, 0, a.length-1);
+	//part(array, 0 , array.length-1);
+	//part(a, 0, a.length-1);
 	//quickselect(array, 5);
 	quickselect(array, 3, 0, array.length-1);
 
