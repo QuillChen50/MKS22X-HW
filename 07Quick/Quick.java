@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Random;
 
 public class Quick{
     
@@ -9,17 +9,20 @@ public class Quick{
     public static int part(int[] data, int start, int end){
 
 	int length = end - start + 1 ;
-	int bindex = length - 1;
-	int findex = 0;
+	int bindex = end;
+	int findex = start;
 	System.out.println("length: " + length);
-	int pivot = random.nextInt(length);
+	//int pivot = random.nextInt(length);
+	int randomNum = random.nextInt(end - start) + 1 + start;
+	int pivot = randomNum;
 	int value = data[pivot];
 
 	int[] temp = new int[length];
 	String result = "";
 
 	for (int i = 0; i < length; i++){
-	    if (data[i] <= value){
+	    if (data[i] < value){
+		System.out.println("i is at: " + i);
 		temp[findex] = data[i];
 		findex++;	
 	    }
@@ -39,8 +42,8 @@ public class Quick{
 	    data[start + j] = temp[j];
 	    }
 	System.out.println("result: " + result);
-	System.out.println("pivot: " + pivot);
-	System.out.println("findex: " + findex);
+	//System.out.println("pivot: " + pivot);
+	//System.out.println("findex: " + findex);
 	return findex;
 
 
@@ -52,9 +55,11 @@ public class Quick{
 	int findex = part(data, start, end);
 
 	if (findex == k){
+	    System.out.println("value: " + value);
 	    return value;
 	}
-	else if (findex > k){
+	//
+	else if (findex < k){
 	    //part(data, findex, end);
 	    //System.out.println("start: " + findex + ", end: " + value);
 	    return quickselect(data, k, findex, end);
