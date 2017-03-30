@@ -58,6 +58,7 @@ public class Quick{
 	    System.out.println("value: " + value);
 	    return value;
 	}
+	//Must look at this Recursion later
 	//
 	else if (findex < k){
 	    //part(data, findex, end);
@@ -73,6 +74,31 @@ public class Quick{
 	//System.out.print( data[i] + ", ");
 	//}
     }
+
+    //Going to Side Track to QuickSort for Now
+    public static void quicksort(int[]ary)
+{
+
+int value = data[k];
+	int findex = part(data, start, end);
+
+	if (findex == k){
+	    System.out.println("value: " + value);
+	    return value;
+	}
+	//Must look at this Recursion later
+	//
+	else if (findex < k){
+	    //part(data, findex, end);
+	    //System.out.println("start: " + findex + ", end: " + value);
+	    return quickselect(data, k, findex, end);
+
+	}
+	    //part(data, 0, findex - 1);
+	//System.out.println("start: " + findex + ", end: " + value);
+	    return quickselect(data, k, start, findex);
+	    
+}
 
 	public String printArray(int[] arr){
 
