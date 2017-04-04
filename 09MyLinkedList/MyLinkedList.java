@@ -26,22 +26,31 @@ ALSO:
 */
 public class MyLinkedList{
 
-            LNode start;
-            int size;
+        public LNode start;
+        public int size;
+        public LNode end;
+
     public MyLinkedList(){
 	//call LNode instantiation
+	//start = node;
     }
+
+public LNode get (){
+	    current = current.next;
+	}
     
 
     public class LNode{
+	new LNode prev;
+	new int value;
+	new LNode next;
 
-	public LNode(){
+	public LNode(int value){
 	    LNode current = start;
+
 	}
-	public LNode get (){
-	    current = current.next;
-	}
-    }
+	
+	
 }
 
 
