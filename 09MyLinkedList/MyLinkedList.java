@@ -36,6 +36,17 @@ public class MyLinkedList{
 	//start = node;
     }
 
+    public class LNode{
+	LNode prev;
+	int value;
+	LNode next;
+
+	public LNode(int value){
+	    LNode current = start;
+
+	}
+    }
+
     public LNode getNthNode (int n){
 	LNode current;
 	int nth;
@@ -54,44 +65,43 @@ public class MyLinkedList{
 	if (size == 1){
 	start = new LNode(value);
 	end = start;
+	return true;
 	}
 
-	else {
-	    tail = new LNode(value);
+	else if (size > 1){
+	    LNode temp = end;
+	    LNode n = new LNode(value);
+	    temp.next  = n; 
+	    end = n;
+	    n.prev = temp;
+
+	return true;
 	}
 
-
+	return false;
     }
 
     public String toString(){
 	String result = "[";
+	LNode now = start;
 	for (int i = size; i > 0; i++){
-	    current = current.next;
+	    start = start.next;
 	    result = "(" + 
-current.prev +"," + 
-current.value + "," + 
-current.next + ")";
+now.prev +"," + 
+now.value + "," + 
+now.next + ")";
 	}
 	result += "]";
 	return result;
     }
     
 
-    public class LNode{
-	LNode prev;
-	int value;
-	LNode next;
-
-	public LNode(int value){
-	    LNode current = start;
-
-	}
-    }
-
     public static void main (String [] args){
 	MyLinkedList l = new MyLinkedList();
 	l.add(2);
 	l.add(5);
+	//The Nodes are still not added quite yet, that or my toString has a bug
+	System.out.println(l);
 	    }
 
 	
