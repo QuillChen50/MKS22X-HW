@@ -1,7 +1,7 @@
 # MKS22X-HW
 Updates to my USACO file doesn/t seem to be registering
 
-# I realized after break that the way to solve commit problems was to clone the directory again as opposed to trying to trace unconnected bits. Unable to commit during break. 
+# I realized after break that the way to solve commit problems was to clone the directory again as opposed to trying to trace unconnected bits. Had difficulty commiting for weeks because of this. Worked on handwriting out the concepts during this period  
 
 Still confused conceptually about 10Deque. 
 
