@@ -95,7 +95,8 @@ now.next + ")";
 	return result;
     }
     
-
+    
+    /*
     public static void main (String [] args){
 	MyLinkedList l = new MyLinkedList();
 	l.add(2);
@@ -103,6 +104,7 @@ now.next + ")";
 	//The Nodes are still not added quite yet, that or my toString has a bug
 	System.out.println(l);
 	    }
+    */
 
 	
 	
