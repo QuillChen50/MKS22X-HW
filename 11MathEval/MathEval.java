@@ -2,7 +2,8 @@ public class ExpressionTree{
   /*instance variables, constructors, and some methods not shown*/
   
   /*accessor method for the value, precondition is that isValue() is true.*/
-  private double getValue(){    /*implementation not shown*/ }
+  private double getValue(){    /*implementation not shown*/ 
+}
   /*accessor method for the operation, precondition is that isOp() is true.*/
   private char getOp(){    /*implementation not shown*/  }    
   /* accessor method for left, precondition is that isOp() is true.*/
@@ -11,14 +12,26 @@ public class ExpressionTree{
   private ExpressionTree getRight(){    /*implementation not shown*/  }
 
   private boolean isOp(){    /*implementation not shown*/  }
-  private boolean isValue(){    /*implementation not shown*/  }
+  private boolean isValue(){    /*implementation not shown*/  
+
+}
 
 
   /* you write these four methods, hint: think recursively */
 
   /*return the expression as an infix notation string with parenthesis*/
   /* The sample tree at the top would be: "( 3 + (2 * 10))"     */
-  public String toString(){    /*you are to write this method*/  }
+  public String toString(){    /*you are to write this method*/
+ 
+      //base case
+      if (is Value()){
+	  return "" + getValue();}
+      else {
+	  return "(" + getLeft().toString() + getOp();
+      }
+
+
+}
 
   /*return the expression as a postfix notation string without parenthesis*/
   /* The sample tree would be: "3 2 10 * +"     */
@@ -77,11 +90,6 @@ String[] tokens = s.split(" ");
 	public static array breakdown (String a){
 
 	}
-
-
-
-
-
 
 
 				       }}
