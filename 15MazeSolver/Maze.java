@@ -77,6 +77,9 @@ public class Maze{
     }
     maxRows = maze.length;
     maxCols = maze[0].length;
+
+    start = new Location (startr, startc);
+    end = new Location (endr, endc);
     //IF YOU GET HERE, there is 1 start, and 1 end. The coords are in
     //startr,startc
     //endr,endc

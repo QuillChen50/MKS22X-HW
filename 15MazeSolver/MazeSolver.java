@@ -17,6 +17,10 @@
   addToFrontier - change the maze to a '?'
 */
 
+import java.io.*;
+import java.io.BufferedReader;
+
+
 public class MazeSolver{
 
     public int ey, ex, sy, sx;
@@ -62,16 +66,32 @@ BufferedReader read = new BufferedReader(new FileReader(filename.getSelectedFile
 	return maze;
     }
 
+
+
 public void printMaze() {
     for (char[] row:maze) {
-	for (char c:row) System.out.print(c);
+	for (char c:row) 
+	    System.out.print(c);
 	System.out.println();
     }
 }
 
-public String toString
+    public String toString(){
+StringBuilder sb = new StringBuilder();
+    for (char[] row:maze) {
+	sb.append("\r\n");
+	for (char c:row) 
+	    sb.append ("" + c);
+    }
+
+    sb.toString();
+
+    }
+
+    public static void main (String [] args){
 
 
+    }
 
 
 
