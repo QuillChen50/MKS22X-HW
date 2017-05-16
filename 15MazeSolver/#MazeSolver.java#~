@@ -1,0 +1,29 @@
+/*5. MazeSolver
+  
+5a constructors:
+MazeSolver(String filename) : filename - input name of the maze file.
+MazeSolver(String filename, boolean animate) : filename - input name of the maze file, animate - true for animating your maze.
+
+5b public methods:
+  solve() - call solve(1)
+  solve(int style) - style is 0-4, where 0-DFS, 1-BFS,2-BestFirst, 3-A*
+     This method will instantiate the Frontier based on which style was chosen. 
+     It will then add the starting location of the maze to the Frontier.
+     Finally it will process each subsequent element of the frontier until the end is found. 
+   
+
+  toString() - the toString of the maze instanceVariable.
+
+    addToFrontier - change the maze to a '?'
+*/
+public class MazeSolver{
+
+    public MazeSolver(String filename){
+
+    }
+
+    public MazeSolver(String filename, boolean animate){
+
+    }
+
+}
