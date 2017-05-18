@@ -19,6 +19,8 @@
 
 import java.io.*;
 import java.io.BufferedReader;
+import java.io.File;
+import javax.swing.JFileChooser;
 
 
 public class MazeSolver{
