@@ -47,14 +47,18 @@ public class MazeSolver{
     }
 
     public char[][] Helper(String filename) throws IOException{
-BufferedReader read = new BufferedReader(new FileReader(filename.getSelectedFile()));
-	int num = 0;
-	maze = new char[width][height];
-	while((readline = read.readLine()) != null){
-	    char[] ch = readline.toCharArray();
-	    for(int i = 0;i < ch.length;i++){
-		maze[i][num] = ch[i];
-		if (maze[i][num] = 'E'){
+	char[] maze;
+	char[][] temp;
+
+	List<String> lines = Files.readAllLines(Paths.get(filename));
+	//created array of array
+	for (int i = 0; i < lines.size(); i++) {
+	    maze[i] = lines.get(i).toCharArray();
+	}
+	//create 2D Array
+	for(int i = 0;i < maze.length;i++, num++){
+		temp[i][num] = ch[i];
+		if (temp[i][num] = 'E'){
 		    ey = num;
 		    ex = i;
 		}
@@ -62,10 +66,8 @@ BufferedReader read = new BufferedReader(new FileReader(filename.getSelectedFile
 		    sy = num;
 		    sx = i;
 		}
-	    }
-	    num++;
-	}
-	return maze;
+	}	
+	return temp;
     }
 
 
