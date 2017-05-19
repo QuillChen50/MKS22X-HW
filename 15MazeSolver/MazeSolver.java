@@ -107,6 +107,11 @@ StringBuilder sb = new StringBuilder();
 
     }
 
+
+
+
+
+
     public static void main (String [] args) throws IOException{
 
 	MazeSolver m = new MazeSolver("data1.txt");
