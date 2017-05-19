@@ -1,5 +1,6 @@
 public class Location implements Comparable<Location>{
 
+    public int sum;
     private int row,col;
     private int distToGoal;
     private int distToStart ;
@@ -11,6 +12,7 @@ public class Location implements Comparable<Location>{
      public Location(int r, int c, Location previous , int distToStart, int distToGoal, boolean aStar){
      row = r;
      col = c;
+     sum = distToGoal + distToStart;
      this.previous = previous;
      this.distToStart = distToStart;
      this.distToEnd = distToEnd;
