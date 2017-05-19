@@ -18,8 +18,8 @@ public Interface Frontier{
 }
 
 public FrontierPriorityQueue implements Frontier{
-    Queue pq;
-    ArrayList a;
+    PriorityQueue pq;
+
 
     public FrontierPriorityQueue (){
 
@@ -27,10 +27,13 @@ public FrontierPriorityQueue implements Frontier{
 
     public boolean add(Location l) throws IOException{
 
+        pq.add(l);
+	return true;
+
     }
 
     public Location next() throws IOException{
-
+	pq.dequeue();
     }
     
 }
